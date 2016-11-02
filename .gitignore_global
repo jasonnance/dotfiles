@@ -3,3 +3,4 @@
 .DS_Store*
 .dir-locals.el
 .projectile
+.python-version
