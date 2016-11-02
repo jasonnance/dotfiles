@@ -49,7 +49,6 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
      syntax-checking
      version-control
      javascript
@@ -343,7 +342,11 @@ you should place your code here."
     '(progn
        (flycheck-add-mode 'javascript-jscs 'react-mode)))
 
-  (setq multi-term-program "/usr/local/bin/fish")
+  (setq multi-term-program "/bin/bash")
+
+  (remove-hook 'yaml-mode-hook 'company-mode)
+
+  (add-hook 'python-mode 'run-python)
 
   )
 
