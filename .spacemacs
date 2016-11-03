@@ -371,17 +371,7 @@ you should place your code here."
      (flycheck-disabled-checkers quote
                                  (javascript-jscs))
      (js-indent-level 2)
-     (js2-basic-offset . 2)
-     (eval progn
-           (setenv "TEST_POSTGRES_URI" "postgres://jnance:@localhost:5432/test_ard")))))
- '(sql-connection-alist
-   (quote
-    (("local_ard_v3"
-      (sql-product
-       (quote postgres))
-      (sql-user "jnance")
-      (sql-database "ard_v3")
-      (sql-server "localhost"))))))
+     (js2-basic-offset . 2)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
