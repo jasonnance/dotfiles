@@ -360,7 +360,6 @@ you should place your code here."
 
   ;; Magit
   (setq magit-repository-directories '("~/projects/"))
-  (setq git-magit-status-fullscreen nil)
 
   ;; Tramp
   (setq tramp-default-method "ssh")
