@@ -347,8 +347,10 @@ you should place your code here."
 
   (remove-hook 'yaml-mode-hook 'company-mode)
 
-  (add-hook 'python-mode 'run-python)
+  (add-hook 'anaconda-mode 'run-python)
+  (setq python-shell-completion-native-enable nil)
 
+  (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
