@@ -316,7 +316,20 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; General editor config
   (editorconfig-mode 1)
+  (global-linum-mode)
+
+  ;; Shell
+  ;; spacemacs doesn't play nicely with fish
+  (let ((shell "/bin/bash"))
+    (setq-default
+     shell-default-term-shell shell
+     shell-file-name shell
+     multi-term-program shell))
+
+  ;; Web mode/JS/TS/React
   (setq-default
    js2-basic-offset 4
    css-indent-offset 4
@@ -326,32 +339,34 @@ you should place your code here."
    web-mode-attr-indent-offset 4
    typescript-indent-level 4
    )
-
-  (projectile-global-mode)
-  (global-linum-mode)
-  (setq magit-repository-directories '("~/projects/"))
-
-  (setq projectile-switch-project-action 'helm-projectile-find-file)
-  (setq projectile-switch-project-action 'helm-projectile)
-  (setq helm-autoresize-mode t)
-
-  ;; Allow pytest to work with fish
-  (setq pytest-cmd-format-string "cd %s; and %s %s %s")
-
-  (setq tramp-default-method "ssh")
-
   (eval-after-load 'flycheck
     '(progn
        (flycheck-add-mode 'javascript-jscs 'react-mode)))
 
-  (setq multi-term-program "/bin/bash")
-
-  (remove-hook 'yaml-mode-hook 'company-mode)
-
+  ;; Python
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
 
+  ;; SQL
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
+
+  ;; Helm
+  (setq helm-autoresize-mode t)
+
+  ;; Projectile
+  (projectile-mode)
+  (setq projectile-switch-project-action 'helm-projectile-find-file)
+  (setq projectile-switch-project-action 'helm-projectile)
+
+  ;; Magit
+  (setq magit-repository-directories '("~/projects/"))
+  (setq git-magit-status-fullscreen nil)
+
+  ;; Tramp
+  (setq tramp-default-method "ssh")
+
+  ;; Company
+  (remove-hook 'yaml-mode-hook 'company-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
