@@ -31,10 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     windows-scripts
      ess
      csv
      nginx
      typescript
+     java
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -344,6 +346,9 @@ you should place your code here."
        (flycheck-add-mode 'javascript-jscs 'react-mode)))
 
   (setq multi-term-program "/usr/local/bin/fish")
+
+  (setq eclim-eclipse-dirs "~/eclipse"
+        eclim-executable "~/eclipse/eclimd")
 
   )
 
