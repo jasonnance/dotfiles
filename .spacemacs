@@ -43,7 +43,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      better-defaults
      emacs-lisp
      git
@@ -51,7 +52,6 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
      syntax-checking
      version-control
      javascript
@@ -65,6 +65,13 @@ values."
      ipython-notebook
      docker
      ansible
+     nginx
+     games
+     dash
+     (haskell :variables
+              haskell-process-type 'stack-ghci
+              haskell-process-path-ghci "stack"
+              haskell-completion-backend 'ghc-mod)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -317,7 +324,20 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; General editor config
   (editorconfig-mode 1)
+  (global-linum-mode)
+
+  ;; Shell
+  ;; spacemacs doesn't play nicely with fish
+  (let ((shell "/bin/bash"))
+    (setq-default
+     shell-default-term-shell shell
+     shell-file-name shell
+     multi-term-program shell))
+
+  ;; Web mode/JS/TS/React
   (setq-default
    js2-basic-offset 4
    css-indent-offset 4
@@ -327,29 +347,40 @@ you should place your code here."
    web-mode-attr-indent-offset 4
    typescript-indent-level 4
    )
-
-  (projectile-global-mode)
-  (global-linum-mode)
-  (setq magit-repository-directories '("~/projects/"))
-
-  (setq projectile-switch-project-action 'helm-projectile-find-file)
-  (setq projectile-switch-project-action 'helm-projectile)
-  (setq helm-autoresize-mode t)
-
-  ;; Allow pytest to work with fish
-  (setq pytest-cmd-format-string "cd %s; and %s %s %s")
-
-  (setq tramp-default-method "ssh")
-
   (eval-after-load 'flycheck
     '(progn
        (flycheck-add-mode 'javascript-jscs 'react-mode)))
 
-  (setq multi-term-program "/usr/local/bin/fish")
+  ;; Python
+  (add-hook 'anaconda-mode 'run-python)
+  (setq python-shell-completion-native-enable nil)
+
+  ;; SQL
+  (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
+
+  ;; Haskell
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-to-list 'exec-path "~/.local/bin")
+
+  ;; Helm
+  (setq helm-autoresize-mode t)
+
+  ;; Projectile
+  (projectile-mode)
+  (setq projectile-switch-project-action 'helm-projectile-find-file)
+  (setq projectile-switch-project-action 'helm-projectile)
+
+  ;; Magit
+  (setq magit-repository-directories '("~/projects/"))
+
+  ;; Tramp
+  (setq tramp-default-method "ssh")
 
   (setq eclim-eclipse-dirs "~/eclipse"
         eclim-executable "~/eclipse/eclimd")
 
+  ;; Company
+  (remove-hook 'yaml-mode-hook 'company-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -359,10 +390,13 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(evil-want-Y-yank-to-eol nil)
  '(js2-strict-missing-semi-warning nil)
  '(package-selected-packages
    (quote
-    (ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode helm-dash dash-at-point selectric-mode typit mmt pacmacs 2048-game ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(safe-local-variable-values
    (quote
     ((flycheck-disabled-checkers
@@ -373,17 +407,7 @@ you should place your code here."
      (flycheck-disabled-checkers quote
                                  (javascript-jscs))
      (js-indent-level 2)
-     (js2-basic-offset . 2)
-     (eval progn
-           (setenv "TEST_POSTGRES_URI" "postgres://jnance:@localhost:5432/test_ard")))))
- '(sql-connection-alist
-   (quote
-    (("local_ard_v3"
-      (sql-product
-       (quote postgres))
-      (sql-user "jnance")
-      (sql-database "ard_v3")
-      (sql-server "localhost"))))))
+     (js2-basic-offset . 2)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
