@@ -31,10 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     windows-scripts
      ess
      csv
      nginx
      typescript
+     java
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -377,6 +379,9 @@ you should place your code here."
 
   ;; Tramp
   (setq tramp-default-method "ssh")
+
+  (setq eclim-eclipse-dirs "~/eclipse"
+        eclim-executable "~/eclipse/eclimd")
 
   ;; Company
   (remove-hook 'yaml-mode-hook 'company-mode)

@@ -4,4 +4,4 @@
 .dir-locals.el
 .projectile
 .python-version
-.stack_work/
+.stack-work/

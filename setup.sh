@@ -12,8 +12,11 @@ for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc; do
         ln -s $(get_abs_filename "$dotfile") "$HOME/$dotfile"
 
         if [[ "$dotfile" = ".vim" ]]; then
-            cd "$dotfile"
+            pushd "$dotfile"
             git submodule update --init --recursive
+            popd
+        elif [[ "$dotfile" = ".gitignore_global" ]]; then
+            git config --global core.excludesfile ~/.gitignore_global
         fi
     fi
 done
