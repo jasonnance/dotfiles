@@ -5,3 +5,12 @@
 .projectile
 .python-version
 .stack-work/
+
+# Microsoft Office
+*.tmp
+~$*.doc*
+~$*.xls*
+*.xlk
+~$*.ppt*
+*.~vsdx
+
