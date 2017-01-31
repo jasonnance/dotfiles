@@ -326,7 +326,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; General editor config
-  (editorconfig-mode 1)
   (global-linum-mode)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
   (setq-default tab-always-indent t
