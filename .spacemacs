@@ -399,6 +399,8 @@ you should place your code here."
   (projectile-mode)
   (setq projectile-switch-project-action 'helm-projectile-find-file)
   (setq projectile-switch-project-action 'helm-projectile)
+  (setq projectile-indexing-method 'native)
+  (setq projectile-enable-caching t)
 
   ;; Magit
   (setq magit-repository-directories '("~/projects/"))
