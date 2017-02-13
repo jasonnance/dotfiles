@@ -2,6 +2,7 @@
 *.swo
 .DS_Store*
 .dir-locals.el
+.agignore
 .projectile
 .python-version
 .stack-work/
