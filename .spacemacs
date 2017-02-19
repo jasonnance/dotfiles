@@ -344,12 +344,15 @@ you should place your code here."
   ;; Web mode/JS/TS/React
   (setq-default
    js2-basic-offset 4
+   js2-indent-switch-body t
+   js-switch-indent-offset 4
    css-indent-offset 4
    web-mode-markup-indent-offset 4
    web-mode-css-indent-offset 4
    web-mode-code-indent-offset 4
    web-mode-attr-indent-offset 4
    typescript-indent-level 4
+
    )
 
   ;; Python
