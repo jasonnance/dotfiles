@@ -404,6 +404,8 @@ you should place your code here."
   (setq projectile-switch-project-action 'helm-projectile)
   (setq projectile-indexing-method 'native)
   (setq projectile-enable-caching t)
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "bower_components")
 
   ;; Magit
   (setq magit-repository-directories '("~/projects/"))
