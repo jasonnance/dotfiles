@@ -374,9 +374,7 @@ you should place your code here."
 
   ;; R
   (setq-default ess-indent-offset 4)
-  (add-hook 'ess-mode-hook
-            (lambda ()
-              (ess-toggle-S-assign nil)))
+  (setq-default ess-smart-S-assign-key nil)
 
   ;; Haskell
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
