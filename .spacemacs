@@ -374,7 +374,14 @@ you should place your code here."
 
   ;; R
   (setq-default ess-indent-offset 4)
-  (setq-default ess-smart-S-assign-key nil)
+  ;; Disable replacing '_' with ' -> '; have to set our
+  ;; own variable and check it to avoid toggling unnecessarily
+  (setq-default ess-underscore-is-set nil)
+  (add-hook 'ess-mode-hook
+            (lambda ()
+              (unless ess-underscore-is-set
+                (ess-toggle-underscore nil)
+                (setq-default ess-underscore-is-set t))))
 
   ;; Haskell
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
