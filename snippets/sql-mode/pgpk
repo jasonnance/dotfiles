@@ -1,0 +1,5 @@
+#key : pgpk
+#name : Postgres PK Constraint
+#contributor: Jason Nance <jason.m.nance@gmail.com>
+# --
+CONSTRAINT $1 PRIMARY KEY ($2)

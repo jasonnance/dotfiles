@@ -1,0 +1,6 @@
+#key : pgfk
+#name: Posgres FK Constraint
+#contributor: Jason Nance <jason.m.nance@gmail.com>
+# --
+CONSTRAINT $1 FOREIGN KEY ($2)
+  REFERENCES $3 ($4)
