@@ -6,6 +6,7 @@
 .projectile
 .python-version
 .stack-work/
+.envrc
 
 # Microsoft Office
 *.tmp
