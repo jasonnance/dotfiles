@@ -372,9 +372,12 @@ you should place your code here."
 
   ;; SQL
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
+  (add-hook 'sql-mode lambda ()
+            (sql-highlight-postgres-keywords))
 
   ;; R
   (setq-default ess-indent-offset 4)
+  (setq-default ess-eval-visibly nil)
   ;; Disable replacing '_' with ' -> '; have to set our
   ;; own variable and check it to avoid toggling unnecessarily
   (setq-default ess-underscore-is-set nil)
