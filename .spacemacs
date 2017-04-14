@@ -424,7 +424,9 @@ you should place your code here."
 
   ;; Company
   (remove-hook 'yaml-mode-hook 'company-mode)
-  )
+  (add-hook 'company-mode-hook
+            (lambda ()
+              (delete 'company-dabbrev company-backends))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
