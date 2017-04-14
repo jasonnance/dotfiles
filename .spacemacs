@@ -318,6 +318,156 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default git-magit-status-fullscreen t)
   )
 
+(defun jnance/setup-ess-mode ()
+  ;; Add extra keybinds/behavior for ESS mode -- based on
+  ;; https://github.com/syl20bnr/spacemacs/pull/4176/files
+  (evilified-state-evilify ess-watch-mode ess-watch-mode-map
+    "g" 'revert-buffer
+    ;; movement
+    "j" 'ess-watch-next-block
+    "k" 'ess-watch-previous-bloc
+    "l" 'ess-watch-next-block
+    "h" 'ess-watch-previous-bloc
+    "n" 'ess-watch-next-block
+    "p" 'ess-watch-previous-bloc
+
+    ;; default edit bindings make sense other than these
+    "c" 'ess-watch-edit-expression
+    "D" 'ess-watch-kill
+
+    "G" 'end-of-buffer)
+
+  (spacemacs/declare-prefix-for-mode 'ess-mode "mc" "noweb")
+  (spacemacs/declare-prefix-for-mode 'ess-mode "ms" "repl-interaction")
+  (spacemacs/declare-prefix-for-mode 'ess-mode "mh" "help")
+  (spacemacs/declare-prefix-for-mode 'ess-mode "md" "developer")
+  (spacemacs/declare-prefix-for-mode 'ess-mode "mb" "debugging")
+  (spacemacs/declare-prefix-for-mode 'ess-mode "mv" "views")
+  (spacemacs/set-leader-keys-for-major-mode 'ess-mode
+    "'"  'spacemacs/ess-start-repl
+    "si" 'spacemacs/ess-start-repl
+    ;; noweb
+    "cC" 'ess-eval-chunk-and-go
+    "cc" 'ess-eval-chunk
+    "cd" 'ess-eval-chunk-and-step
+    "cm" 'ess-noweb-mark-chunk
+    "cN" 'ess-noweb-previous-chunk
+    "cn" 'ess-noweb-next-chunk
+    ;; REPL
+    "sa" 'ess-switch-process
+    "sB" 'ess-eval-buffer-and-go
+    "sb" 'ess-eval-buffer
+    "sD" 'ess-eval-function-or-paragraph-and-step
+    "sd" 'ess-eval-region-or-line-and-step
+    "sL" 'ess-eval-line-and-go
+    "sl" 'ess-eval-line
+    "sR" 'ess-eval-region-and-go
+    "sr" 'ess-eval-region
+    "sT" 'ess-eval-function-and-go
+    "st" 'ess-eval-function
+    "sP" 'ess-install-library
+    "sp" 'ess-load-library
+    "s:" 'ess-execute
+    "sw" 'ess-set-working-directory
+    ;; R helpers
+    "hh" 'ess-display-help-on-object
+    "hH" 'ess-describe-object-at-point
+    "ha" 'ess-display-help-apropos
+    "hp" 'ess-display-package-index
+    "hv" 'ess-display-vignettes
+    "hw" 'ess-help-web-search
+
+    ;; These two aren't applicable to / implemented in R, but might be
+    ;; utilizted in other dialects
+    "hm" 'ess-manual-lookup
+    "hr" 'ess-reference-lookup
+
+    ;; Developer bindings
+    "dT" 'ess-build-tags-for-directory
+    "ds" 'ess-set-style
+    "dg" 'ess-dump-object-into-edit-buffer
+    ;; TODO only show these bindings if we're in R-mode.
+    "dl" 'ess-r-devtools-load-package
+    "dp" 'ess-r-devtools-set-pacakge
+    "dt" 'ess-r-devtools-test-pacakge
+    "dc" 'ess-r-devtools-check-pacakge
+    "dr" 'ess-r-devtools-document-package
+    "du" 'ess-r-devtools-unload-package
+    "di" 'ess-r-devtools-install-package
+
+    ;; debug bindings
+    "bT" 'ess-show-traceback
+    ;; "b~" 'ess-show-callstack
+    ;; "bC" 'ess-show-callstack
+    "bs" 'ess-bp-set
+    "be" 'ess-debug-toggle-error-action
+    "bc" 'ess-bp-set-conditional
+    "bl" 'ess-bp-set-logger
+    "bt" 'ess-bp-toggle-state
+    "bd" 'ess-bp-kill
+    "bD" 'ess-bp-kill-all
+    "bn" 'ess-bp-next
+    "bp" 'ess-bp-previous
+    "bm" 'ess-debug-flag-for-debugging
+    "bM" 'ess-debug-unflag-for-debugging
+    "bw" 'ess-watch
+    ;; other views
+    "vp" 'ess-R-dv-pprint
+    "vi" 'ess-R-object-popup
+    "vt" 'ess-R-dv-ctable
+    "vd" 'ess-rdired)
+  (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
+
+  ;; define the applicable subset of the above keys for the inferior mode
+  ;; as well
+  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "ms" "repl-interaction")
+  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mh" "help")
+  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "md" "developer")
+  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mb" "debugging")
+  (spacemacs/declare-prefix-for-mode 'inferior-ess-mode "mv" "views")
+  (spacemacs/set-leader-keys-for-major-mode 'inferior-ess-mode
+    "sP" 'ess-install-library
+    "sp" 'ess-load-library
+    "s:" 'ess-execute
+    "sw" 'ess-set-working-directory
+    ;; R helpers
+    "hh" 'ess-display-help-on-object
+    "hH" 'ess-describe-object-at-point
+    "ha" 'ess-display-help-apropos
+    "hp" 'ess-display-package-index
+    "hv" 'ess-display-vignettes
+    "hw" 'ess-help-web-search
+
+    ;; These two aren't applicable to / implemented in R, but might be
+    ;; utilizted in other dialects
+    "hm" 'ess-manual-lookup
+    "hr" 'ess-reference-lookup
+
+    ;; Developer bindings
+    "dg" 'ess-dump-object-into-edit-buffer
+
+    ;; TODO only show these bindings if we're in R-mode.
+    "dl" 'ess-r-devtools-load-package
+    "dp" 'ess-r-devtools-set-pacakge
+    "dt" 'ess-r-devtools-test-pacakge
+    "dc" 'ess-r-devtools-check-pacakge
+    "dr" 'ess-r-devtools-document-package
+    "du" 'ess-r-devtools-unload-package
+    "di" 'ess-r-devtools-install-package
+
+    ;; debug bindings
+    "bT" 'ess-show-traceback
+    "be" 'ess-debug-toggle-error-action
+    "bw" 'ess-watch
+    ;; other views
+    "vp" 'ess-R-dv-pprint
+    "vi" 'ess-R-object-popup
+    "vt" 'ess-R-dv-ctable
+    "vd" 'ess-rdired)
+  (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
+  (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))
+
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -383,6 +533,7 @@ you should place your code here."
   (setq-default ess-underscore-is-set nil)
   (add-hook 'ess-mode-hook
             (lambda ()
+              (jnance/setup-ess-mode)
               (unless ess-underscore-is-set
                 (ess-toggle-underscore nil)
                 (setq-default ess-underscore-is-set t))))
