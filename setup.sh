@@ -23,11 +23,13 @@ for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc; do
 done
 
 # Setup custom emacs snippets
-# TODO not working
 base_snippet_dir="$HOME/.spacemacs.d/snippets"
 mkdir -p "$base_snippet_dir"
-for snippet_dir in $(ls ./snippets); do
+pushd snippets > /dev/null
+for snippet_dir in $(ls .); do
+    abs_snippet_dir=$(get_abs_filename "$snippet_dir")
     pushd "$base_snippet_dir" > /dev/null
-    ln -s $(get_abs_filename "$snippet_dir") "$snippet_dir"
+    ln -s "$abs_snippet_dir" "$snippet_dir"
     popd > /dev/null
 done;
+popd > /dev/null
