@@ -523,8 +523,9 @@ you should place your code here."
 
   ;; SQL
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
-  (add-hook 'sql-mode lambda ()
-            (sql-highlight-postgres-keywords))
+  (add-hook 'sql-mode
+            (lambda ()
+              (sql-highlight-postgres-keywords)))
 
   ;; R
   (setq-default ess-indent-offset 4)
