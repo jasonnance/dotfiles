@@ -477,6 +477,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; General editor config
+  (setq vc-follow-symlinks 1)
   (global-linum-mode)
   (direnv-mode)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
