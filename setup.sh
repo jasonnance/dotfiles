@@ -40,6 +40,10 @@ submodule_symlink $(get_abs_filename "./.pyenv") "$HOME"
 # Same for pyenv-virtualenv
 submodule_symlink $(get_abs_filename "./pyenv-virtualenv") "$(pyenv root)/plugins/"
 
+# And direnv
+submodule_symlink $(get_abs_filename "./direnv") "$HOME"
+command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
+
 # Setup dotfiles
 for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc .zshrc .zshenv; do
     if [[ ! -e "../$dotfile" ]]; then

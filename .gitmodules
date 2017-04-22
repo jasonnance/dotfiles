@@ -58,3 +58,6 @@
 [submodule ".pyenv"]
 	path = .pyenv
 	url = https://github.com/pyenv/pyenv.git
+[submodule "direnv"]
+	path = direnv
+	url = https://github.com/direnv/direnv

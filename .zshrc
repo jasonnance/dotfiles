@@ -96,3 +96,6 @@ POWERLEVEL9k_SHORTEN_STRATEGY="truncate_from_right"
 
 # pyenv config
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# direnv
+eval "$(direnv hook zsh)"
