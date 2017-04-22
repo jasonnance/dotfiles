@@ -43,3 +43,12 @@
 [submodule ".vim/bundle/vim-mustache-handlebars"]
 	path = .vim/bundle/vim-mustache-handlebars
 	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "zsh_plugins/zsh-autosuggestions"]
+	path = zsh_plugins/zsh-autosuggestions
+	url = git://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh_themes/powerlevel9k"]
+	path = zsh_themes/powerlevel9k
+	url = https://github.com/bhilburn/powerlevel9k.git
+[submodule "zsh_plugins/zsh-syntax-highlighting"]
+	path = zsh_plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git

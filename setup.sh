@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assumes emacs, vim, and zsh are already installed.
+# Assumes emacs/spacemacs, vim, and zsh are already installed.
 
 set -e
 
@@ -29,6 +29,32 @@ for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc .zshrc; d
         fi
     fi
 done
+
+ZSH_CUSTOM="/home/jason/.oh-my-zsh/custom"
+
+# Setup zsh plugins
+pushd "./zsh_plugins" > /dev/null
+mkdir -p "$ZSH_CUSTOM/plugins"
+for plugin in $(ls .); do
+    abs_plugin=$(get_abs_filename "$plugin")
+    if [[ ! -L "$ZSH_CUSTOM/plugins/$plugin" ]]; then
+        git submodule update --init --recursive
+        ln -s "$abs_plugin" "$ZSH_CUSTOM/plugins/$plugin"
+    fi
+done
+popd > /dev/null
+
+# Setup zsh themes
+pushd "./zsh_themes" > /dev/null
+mkdir -p "$ZSH_CUSTOM/themes"
+for theme in $(ls .); do
+    abs_theme=$(get_abs_filename "$theme")
+    if [[ ! -L "$ZSH_CUSTOM/themes/$theme" ]]; then
+        git submodule update --init --recursive
+        ln -s "$abs_theme" "$ZSH_CUSTOM/themes/$theme"
+    fi
+done
+popd > /dev/null
 
 # Setup custom emacs snippets
 base_snippet_dir="$HOME/.spacemacs.d/snippets"
