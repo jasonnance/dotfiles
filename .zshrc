@@ -1,3 +1,5 @@
+export TERM="xterm-256color"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -82,5 +84,15 @@ export VISUAL="emacsclient -c -a emacs"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Powerlevel9k theme customizations
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs pyenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs root_indicator time)
+
+# fish-like truncating
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9k_SHORTEN_STRATEGY="truncate_from_right"
+
 # pyenv config
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
