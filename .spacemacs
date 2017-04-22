@@ -274,7 +274,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -478,7 +478,6 @@ you should place your code here."
 
   ;; General editor config
   (setq vc-follow-symlinks 1)
-  (global-linum-mode)
   (direnv-mode)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
   (setq-default tab-always-indent t
