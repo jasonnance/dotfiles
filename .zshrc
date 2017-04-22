@@ -86,7 +86,7 @@ export VISUAL="emacsclient -c -a emacs"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Powerlevel9k theme customizations
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs pyenv)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs root_indicator time)
 
 # fish-like truncating
