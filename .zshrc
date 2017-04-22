@@ -82,3 +82,5 @@ export VISUAL="emacsclient -c -a emacs"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+# pyenv config
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
