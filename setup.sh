@@ -59,7 +59,7 @@ for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc .zshrc .z
     fi
 done
 
-ZSH_CUSTOM="/home/jason/.oh-my-zsh/custom"
+ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 # Setup zsh plugins
 for plugin in $(ls ./zsh_plugins); do
