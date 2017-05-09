@@ -491,6 +491,7 @@ you should place your code here."
      shell-default-term-shell shell
      shell-file-name shell
      multi-term-program shell))
+  (add-to-list 'auto-mode-alist '("\\.zshrc_secret\\'" . sh-mode))
 
   ;; Web mode/JS/TS/React
   (setq-default

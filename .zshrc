@@ -99,3 +99,8 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# source secret config untracked by source control, if it's there
+if [[ -f "$HOME/.zshrc_secret" ]]; then
+    source "$HOME/.zshrc_secret"
+fi
