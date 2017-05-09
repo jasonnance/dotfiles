@@ -492,6 +492,8 @@ you should place your code here."
      shell-file-name shell
      multi-term-program shell))
   (add-to-list 'auto-mode-alist '("\\.zshrc_secret\\'" . sh-mode))
+  (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
+  (add-to-list 'auto-mode-alist '("\\.out\\'" . auto-revert-mode))
 
   ;; Web mode/JS/TS/React
   (setq-default
