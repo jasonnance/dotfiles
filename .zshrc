@@ -97,6 +97,9 @@ POWERLEVEL9k_SHORTEN_STRATEGY="truncate_from_right"
 # pyenv config
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
+# zsh auto-suggest colors that stand out in the Solarized color scheme
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=242
+
 # direnv
 eval "$(direnv hook zsh)"
 
