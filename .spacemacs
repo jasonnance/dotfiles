@@ -501,6 +501,13 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.out\\'" . auto-revert-mode))
 
   ;; Web mode/JS/TS/React
+  (remove-hook 'web-mode-hook #'emmet-mode)
+  ;; Don't use auto-quoting for TSX files
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (and (stringp buffer-file-name)
+                         (string-match "\\.tsx\\'" buffer-file-name))
+                (setq web-mode-enable-auto-quoting nil))))
   (setq-default
    js2-basic-offset 4
    js2-indent-switch-body t
