@@ -8,6 +8,8 @@
 .stack-work/
 .envrc
 .nvmrc
+cscope.files
+cscope.out
 
 # Microsoft Office
 *.tmp
