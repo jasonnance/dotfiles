@@ -83,7 +83,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(editorconfig pyenv-mode direnv)
+   dotspacemacs-additional-packages '(rtags rtags-helm flycheck-rtags company-rtags editorconfig pyenv-mode direnv)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -322,6 +322,48 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq-default git-magit-status-fullscreen t)
   )
+
+(defun jnance/setup-rtags ()
+  ;; Add keybinds for rtags for C++ code
+  ;; Based on https://skebanga.github.io/rtags-with-cmake-in-spacemacs/
+  (setq rtags-autostart-diagnostics t
+        rtags-completions-enabled t
+        rtags-use-helm t)
+  (eval-after-load 'company
+    '(add-to-list
+      'company-backends 'company-rtags))
+  (rtags-enable-standard-keybindings)
+  (add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+    "g." 'rtags-find-symbol-at-point
+    "g," 'rtags-find-references-at-point
+    "gv" 'rtags-find-virtuals-at-point
+    "gV" 'rtags-print-enum-value-at-point
+    "g/" 'rtags-find-all-references-at-point
+    "gY" 'rtags-cycle-overlays-on-screen
+    "g>" 'rtags-find-symbol
+    "g<" 'rtags-find-references
+    "g[" 'rtags-location-stack-back
+    "g]" 'rtags-location-stack-forward
+    "gD" 'rtags-diagnostics
+    "gG" 'rtags-guess-function-at-point
+    "gp" 'rtags-set-current-project
+    "gP" 'rtags-print-dependencies
+    "ge" 'rtags-reparse-file
+    "gE" 'rtags-preprocess-file
+    "gR" 'rtags-rename-symbol
+    "gM" 'rtags-symbol-info
+    "gS" 'rtags-display-summary
+    "gO" 'rtags-goto-offset
+    "g;" 'rtags-find-file
+    "gF" 'rtags-fixit
+    "gL" 'rtags-copy-and-print-current-location
+    "gX" 'rtags-fix-fixit-at-point
+    "gB" 'rtags-show-rtags-buffer
+    "gI" 'rtags-imenu
+    "gT" 'rtags-taglist
+    "gh" 'rtags-print-class-hierarchy
+    "ga" 'rtags-print-source-arguments))
 
 (defun jnance/setup-ess-mode ()
   ;; Add extra keybinds/behavior for ESS mode -- based on
@@ -569,7 +611,9 @@ you should place your code here."
   ;; C#
   (setq-default omnisharp-server-executable-path "~/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe")
   (add-hook 'csharp-mode-hook #'aggressive-indent-mode)
-
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (jnance/setup-rtags)))
 
   ;; Helm
   (setq helm-autoresize-mode t)
@@ -608,7 +652,7 @@ you should place your code here."
  '(js2-strict-missing-semi-warning nil)
  '(package-selected-packages
    (quote
-    (stickyfunc-enhance srefactor helm-cscope xcscope disaster company-c-headers cmake-mode clang-format direnv omnisharp csharp-mode insert-shebang hide-comnt powershell company-emacs-eclim eclim intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode helm-dash dash-at-point selectric-mode typit mmt pacmacs 2048-game ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (company-rtags flycheck-rtags rtags stickyfunc-enhance srefactor helm-cscope xcscope disaster company-c-headers cmake-mode clang-format direnv omnisharp csharp-mode insert-shebang hide-comnt powershell company-emacs-eclim eclim intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode helm-dash dash-at-point selectric-mode typit mmt pacmacs 2048-game ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(safe-local-variable-values
    (quote
     ((flycheck-disabled-checkers

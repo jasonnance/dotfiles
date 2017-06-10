@@ -107,3 +107,9 @@ eval "$(direnv hook zsh)"
 if [[ -f "$HOME/.zshrc_secret" ]]; then
     source "$HOME/.zshrc_secret"
 fi
+
+function generate_compile_commands() {
+    make clean
+    bear make
+    rc -J
+}
