@@ -567,6 +567,9 @@ you should place your code here."
   (pyenv-mode)
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'flake8 'anaconda-mode)
+    (flycheck-add-mode 'pylint 'anaconda-mode))
 
   (defun projectile-pyenv-mode-set ()
     "Set pyenv version matching project name."

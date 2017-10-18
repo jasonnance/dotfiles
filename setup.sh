@@ -15,7 +15,7 @@ function submodule_symlink() {
     local submodule_dir_name=$(basename "$abs_submodule_dir")
 
     mkdir -p "$install_dir"
-    if [[ ! -L "$install_dir/$submodule_dir_name" ]]; then
+    if [[ ! -e "$install_dir/$submodule_dir_name" ]]; then
         git submodule update --init --recursive
         pushd "$install_dir" >/dev/null
         ln -s "$abs_submodule_dir" "$submodule_dir_name"
@@ -26,6 +26,30 @@ function submodule_symlink() {
 function get_abs_filename() {
     local rel_filename="$1"
     echo "$(cd "$(dirname "$rel_filename")" && pwd)/$(basename "$rel_filename")"
+}
+
+function install_dotfile() {
+    if [[ ! $# -eq 2 ]]; then
+        echo "install_dotfile requires dotfile and install_dir to be passed."
+        exit 1
+    fi
+
+    local dotfile="$1"
+    local install_dir="$2"
+
+    mkdir -p "$install_dir"
+
+    if [[ ! -e "../$dotfile" ]]; then
+        ln -s $(get_abs_filename "$dotfile") "$install_dir/$dotfile"
+
+        if [[ "$dotfile" = ".vim" ]]; then
+            pushd "$dotfile"
+            git submodule update --init --recursive
+            popd
+        elif [[ "$dotfile" = ".gitignore_global" ]]; then
+            git config --global core.excludesfile ~/.gitignore_global
+        fi
+    fi
 }
 
 # Install oh-my-zsh, if not already installed
@@ -45,18 +69,16 @@ submodule_symlink $(get_abs_filename "./direnv") "$HOME"
 command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
 
 # Setup dotfiles
-for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs .vim .ipyrc .zshrc .zshenv; do
-    if [[ ! -e "../$dotfile" ]]; then
-        ln -s $(get_abs_filename "$dotfile") "$HOME/$dotfile"
+for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs \
+                                 .vim .pylintrc .ipyrc .zshrc \
+                                 .zshenv flake8; do
+    install_dir="$HOME"
 
-        if [[ "$dotfile" = ".vim" ]]; then
-            pushd "$dotfile"
-            git submodule update --init --recursive
-            popd
-        elif [[ "$dotfile" = ".gitignore_global" ]]; then
-            git config --global core.excludesfile ~/.gitignore_global
-        fi
+    if [[ "$dotfile" = "flake8" ]]; then
+        install_dir="$HOME/.config"
     fi
+
+    install_dotfile "$dotfile" "$install_dir"
 done
 
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
