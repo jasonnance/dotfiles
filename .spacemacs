@@ -365,7 +365,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     "gI" 'rtags-imenu
     "gT" 'rtags-taglist
     "gh" 'rtags-print-class-hierarchy
-    "ga" 'rtags-print-source-arguments))
+    "gs" 'rtags-print-source-arguments))
 
 (defun jnance/setup-ess-mode ()
   ;; Add extra keybinds/behavior for ESS mode -- based on
