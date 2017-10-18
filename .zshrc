@@ -113,3 +113,8 @@ function generate_compile_commands() {
     bear make
     rc -J
 }
+
+function export_conda_env() {
+    # Export a conda environment without the useless prefix line.
+    conda env export -n $(pyenv version-name) | grep -v '^prefix: ' > environment.yml
+}
