@@ -23,8 +23,5 @@ autocmd FileType html.mustache,scss,css,html setlocal shiftwidth=2 softtabstop=2
 
 set omnifunc=syntaxcomplete#Complete
 
-set ballooneval
-autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
-
 map <silent><A-Right> :tabnext<CR>
 map <silent><A-Left> :tabprevious<CR> 
