@@ -552,6 +552,8 @@ you should place your code here."
               (when (and (stringp buffer-file-name)
                          (string-match "\\.tsx\\'" buffer-file-name))
                 (setq web-mode-enable-auto-quoting nil))))
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+
   (setq-default
    js2-basic-offset 4
    js2-indent-switch-body t
