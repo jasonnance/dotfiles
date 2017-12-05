@@ -547,12 +547,10 @@ you should place your code here."
 
   ;; Web mode/JS/TS/React
   (remove-hook 'web-mode-hook #'emmet-mode)
-  ;; Don't use auto-quoting for TSX files
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (and (stringp buffer-file-name)
-                         (string-match "\\.tsx\\'" buffer-file-name))
-                (setq web-mode-enable-auto-quoting nil))))
+  (defun my-web-mode-hook ()
+    ;; Don't use auto-quoting
+    (setq web-mode-enable-auto-quoting nil))
+  (add-hook 'web-mode-hook 'my-web-mode-hook)
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
   (setq-default
