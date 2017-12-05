@@ -528,6 +528,7 @@ you should place your code here."
   ;; General editor config
   (setq vc-follow-symlinks 1)
   (direnv-mode)
+  (editorconfig-mode)
   (remove-hook 'prog-mode-hook #'smartparens-mode)
   (setq-default tab-always-indent t
                 tab-width 4
