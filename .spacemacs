@@ -547,11 +547,19 @@ you should place your code here."
 
   ;; Web mode/JS/TS/React
   (remove-hook 'web-mode-hook #'emmet-mode)
+  (defun set-web-mode-paddings ()
+    (setq web-mode-script-padding 0)
+    (setq web-mode-style-padding 0)
+    (setq web-mode-block-padding 0))
   (defun my-web-mode-hook ()
     ;; Don't use auto-quoting
+    (set-web-mode-paddings)
     (setq web-mode-enable-auto-quoting nil))
   (add-hook 'web-mode-hook 'my-web-mode-hook)
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+  ;; editorconfig overrides these if we don't set them like this
+  (add-hook 'editorconfig-custom-hooks
+            (lambda (hash) (set-web-mode-paddings)))
 
   (setq-default
    js2-basic-offset 4
