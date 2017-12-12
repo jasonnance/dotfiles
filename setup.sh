@@ -39,7 +39,7 @@ function install_dotfile() {
 
     mkdir -p "$install_dir"
 
-    if [[ ! -e "../$dotfile" ]]; then
+    if [[ ! -e "$install_dir/$dotfile" ]]; then
         ln -s $(get_abs_filename "$dotfile") "$install_dir/$dotfile"
 
         if [[ "$dotfile" = ".vim" ]]; then
