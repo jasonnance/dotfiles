@@ -1,0 +1,5 @@
+# -*- mode: web-mode -*-
+# name: Web-Mode Console Log
+# key: log
+# --
+console.log($1);
