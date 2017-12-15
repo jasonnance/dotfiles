@@ -83,7 +83,7 @@ values."
      (go :variables
          go-use-gocheck-for-testing t
          gofmt-command "goimports"
-         go-tab-width 4
+         go-tab-width 8
          go-use-gometalinter t)
      )
    ;; List of additional packages that will be installed without being
