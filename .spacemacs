@@ -84,7 +84,8 @@ values."
          go-use-gocheck-for-testing t
          gofmt-command "goimports"
          go-tab-width 8
-         go-use-gometalinter t)
+         go-use-gometalinter t
+         flycheck-gometalinter-vendor t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
