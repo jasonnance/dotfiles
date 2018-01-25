@@ -543,8 +543,11 @@ you should place your code here."
                 tab-width 4
                 evil-shift-width 4)
 
+  ;; Markdown/text
+  (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+  (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+
   ;; Shell
-  ;; spacemacs doesn't play nicely with fish
   (let ((shell "/bin/bash"))
     (setq-default
      shell-default-term-shell shell
