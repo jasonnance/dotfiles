@@ -7,3 +7,6 @@ eval "$(pyenv virtualenv-init -)"
 
 # direnv
 export PATH="$PATH:$HOME/direnv"
+
+# go
+export PATH="$PATH:/usr/local/go/bin"
