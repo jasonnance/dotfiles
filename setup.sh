@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assumes emacs/spacemacs, vim, and zsh are already installed.
+# Assumes emacs/spacemacs, vim, go, and zsh are already installed.
 
 set -e
 
@@ -55,16 +55,21 @@ function install_dotfile() {
 # Install oh-my-zsh, if not already installed
 if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    rm ~/.zshrc
+    rm ~/.zshrc || true
 fi
 
 # Install pyenv
 submodule_symlink $(get_abs_filename "./.pyenv") "$HOME"
 
+# Add pyenv stuff to our path now that it's installed, if it's not already there
+if ! command -v pyenv; then
+	export PATH="$PATH:$HOME/.pyenv/bin"
+fi
+
 # Same for pyenv-virtualenv
 submodule_symlink $(get_abs_filename "./pyenv-virtualenv") "$(pyenv root)/plugins/"
 
-# And direnv
+# And direnv (requires Go)
 submodule_symlink $(get_abs_filename "./direnv") "$HOME"
 command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
 
