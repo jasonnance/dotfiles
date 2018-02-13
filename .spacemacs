@@ -332,6 +332,13 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq-default git-magit-status-fullscreen t)
+
+  ;; C/C++
+  (setq-default c-default-style
+                '((java-mode . "java")
+                  (awk-mode . "awk")
+                  (c-mode . "bsd")
+                  (c++-mode . "bsd")))
   )
 
 (defun jnance/setup-rtags ()
@@ -634,8 +641,9 @@ you should place your code here."
         eclim-executable "~/eclipse/eclimd")
 
   ;; C/C++
-  (setq-default c-default-style "bsd")
-  (setq-default c-basic-offset 4)
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (setq-default c-basic-offset 4)))
 
   ;; C#
   (setq-default omnisharp-server-executable-path "~/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe")
