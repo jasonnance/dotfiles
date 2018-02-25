@@ -651,7 +651,6 @@ you should place your code here."
               (setq c-basic-offset 4)))
 
   ;; C#
-  (setq-default omnisharp-server-executable-path "~/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe")
   (add-hook 'csharp-mode-hook #'aggressive-indent-mode)
   (add-hook 'c++-mode-hook
             (lambda ()
