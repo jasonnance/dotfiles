@@ -642,12 +642,15 @@ you should place your code here."
         eclim-executable "~/eclipse/eclimd")
 
   ;; C/C++
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (c-set-style "bsd")
+              (setq c-basic-offset 4)))
   (add-hook 'c++-mode-hook
             (lambda ()
-              (setq-default c-basic-offset 4)))
+              (setq c-basic-offset 4)))
 
   ;; C#
-  (setq-default omnisharp-server-executable-path "~/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe")
   (add-hook 'csharp-mode-hook #'aggressive-indent-mode)
   (add-hook 'c++-mode-hook
             (lambda ()
