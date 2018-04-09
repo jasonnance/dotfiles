@@ -584,6 +584,7 @@ you should place your code here."
   (setq-default
    js2-basic-offset 4
    js2-indent-switch-body t
+   js2-strict-trailing-comma-warning nil
    js-switch-indent-offset 4
    css-indent-offset 4
    web-mode-markup-indent-offset 4
