@@ -582,17 +582,22 @@ you should place your code here."
             (lambda (hash) (set-web-mode-paddings)))
 
   (setq-default
+   ;; Javascript
    js2-basic-offset 4
    js2-indent-switch-body t
    js2-strict-trailing-comma-warning nil
    js-switch-indent-offset 4
+   ;; CSS
    css-indent-offset 4
+   ;; Web-mode
    web-mode-markup-indent-offset 4
    web-mode-css-indent-offset 4
    web-mode-code-indent-offset 4
    web-mode-attr-indent-offset 4
+   ;; Typescript
    typescript-indent-level 4
-
+   ;; JSON
+   js-indent-level 2
    )
 
   ;; Python
