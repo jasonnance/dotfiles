@@ -585,10 +585,14 @@ you should place your code here."
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   (setq-default
+   ;; Javascript
    js2-basic-offset 4
    js2-indent-switch-body t
+   js2-strict-trailing-comma-warning nil
    js-switch-indent-offset 4
+   ;; CSS
    css-indent-offset 4
+   ;; Typescript
    typescript-indent-level 4
    )
 
