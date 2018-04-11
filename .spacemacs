@@ -56,7 +56,8 @@ values."
             shell-default-position 'bottom)
      syntax-checking
      version-control
-     javascript
+     (javascript :variables
+                 node-modules-add-path t)
      html
      shell-scripts
      sql
@@ -576,10 +577,12 @@ you should place your code here."
     (set-web-mode-paddings)
     (setq web-mode-enable-auto-quoting nil))
   (add-hook 'web-mode-hook 'my-web-mode-hook)
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
   ;; editorconfig overrides these if we don't set them like this
   (add-hook 'editorconfig-custom-hooks
             (lambda (hash) (set-web-mode-paddings)))
+  ;; Vue
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   (setq-default
    js2-basic-offset 4
