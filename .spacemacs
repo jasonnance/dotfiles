@@ -589,12 +589,7 @@ you should place your code here."
    js2-indent-switch-body t
    js-switch-indent-offset 4
    css-indent-offset 4
-   web-mode-markup-indent-offset 4
-   web-mode-css-indent-offset 4
-   web-mode-code-indent-offset 4
-   web-mode-attr-indent-offset 4
    typescript-indent-level 4
-
    )
 
   ;; Python
