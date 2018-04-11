@@ -596,8 +596,6 @@ you should place your code here."
    web-mode-attr-indent-offset 4
    ;; Typescript
    typescript-indent-level 4
-   ;; JSON
-   js-indent-level 2
    )
 
   ;; Python
