@@ -10,3 +10,6 @@ export PATH="$PATH:$HOME/direnv"
 
 # go
 export PATH="$PATH:/usr/local/go/bin"
+
+# yarn
+export PATH="$PATH:/$HOME/.yarn/bin"

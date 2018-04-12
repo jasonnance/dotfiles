@@ -95,7 +95,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv)
+   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -584,16 +584,23 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'react-mode-hook 'prettier-js-mode)
+
   (setq-default
    ;; Javascript
-   js2-basic-offset 4
+   js2-basic-offset 2
    js2-indent-switch-body t
    js2-strict-trailing-comma-warning nil
-   js-switch-indent-offset 4
+   web-mode-code-indent-offset 2
    ;; CSS
-   css-indent-offset 4
+   css-indent-offset 2
+   web-mode-css-indent-offset 2
+   ;; HTML
+   web-mode-markup-indent-offset 2
+   web-mode-attr-indent-offset 2
    ;; Typescript
-   typescript-indent-level 4
    )
 
   ;; Python
