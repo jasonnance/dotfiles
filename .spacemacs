@@ -591,6 +591,7 @@ you should place your code here."
   (setq-default
    ;; Javascript
    js2-basic-offset 2
+   js-indent-level 2
    js2-indent-switch-body t
    js2-strict-trailing-comma-warning nil
    web-mode-code-indent-offset 2
