@@ -628,6 +628,7 @@ you should place your code here."
               (sql-highlight-postgres-keywords)))
 
   ;; R
+  (add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
   (setq-default ess-indent-offset 4)
   (setq-default ess-eval-visibly nil)
   ;; Disable replacing '_' with ' -> '; have to set our
