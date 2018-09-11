@@ -34,7 +34,8 @@ values."
      graphviz
      vimscript
      windows-scripts
-     ess
+     (ess :variables
+          ess-disable-underscore-assign t)
      csv
      nginx
      typescript
@@ -631,15 +632,9 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
   (setq-default ess-indent-offset 4)
   (setq-default ess-eval-visibly nil)
-  ;; Disable replacing '_' with ' -> '; have to set our
-  ;; own variable and check it to avoid toggling unnecessarily
-  (setq-default ess-underscore-is-set nil)
   (add-hook 'ess-mode-hook
             (lambda ()
-              (jnance/setup-ess-mode)
-              (unless ess-underscore-is-set
-                (ess-toggle-underscore nil)
-                (setq-default ess-underscore-is-set t))))
+              (jnance/setup-ess-mode)))
 
   ;; Haskell
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
