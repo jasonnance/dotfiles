@@ -91,6 +91,10 @@ values."
          flycheck-gometalinter-deadline "10s"
          flycheck-gometalinter-fast t
          go-packages-function 'go-packages-go-list)
+     elixir
+     (elm :variables
+          elm-sort-imports-on-save t
+          elm-format-on-save t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -552,6 +556,10 @@ you should place your code here."
   (setq-default tab-always-indent t
                 tab-width 4
                 evil-shift-width 4)
+
+  ;; General flycheck
+  (setq-default flycheck-disabled-checkers
+                (append '(elixir-dogma) flycheck-disabled-checkers))
 
   ;; Markdown/text
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
