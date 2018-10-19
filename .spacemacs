@@ -563,6 +563,7 @@ you should place your code here."
                 tab-width 4
                 evil-shift-width 4)
   (when (memq window-system '(mac ns x))
+    (setq-default exec-path-from-shell-arguments "-l")
     (exec-path-from-shell-initialize))
 
   ;; General flycheck
