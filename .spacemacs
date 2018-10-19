@@ -34,7 +34,8 @@ values."
      graphviz
      vimscript
      windows-scripts
-     ess
+     (ess :variables
+          ess-disable-underscore-assign t)
      csv
      nginx
      typescript
@@ -90,6 +91,10 @@ values."
          flycheck-gometalinter-deadline "10s"
          flycheck-gometalinter-fast t
          go-packages-function 'go-packages-go-list)
+     elixir
+     (elm :variables
+          elm-sort-imports-on-save t
+          elm-format-on-save t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -552,6 +557,10 @@ you should place your code here."
                 tab-width 4
                 evil-shift-width 4)
 
+  ;; General flycheck
+  (setq-default flycheck-disabled-checkers
+                (append '(elixir-dogma) flycheck-disabled-checkers))
+
   ;; Markdown/text
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
   (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
@@ -591,6 +600,7 @@ you should place your code here."
   (setq-default
    ;; Javascript
    js2-basic-offset 2
+   js-indent-level 2
    js2-indent-switch-body t
    js2-strict-trailing-comma-warning nil
    web-mode-code-indent-offset 2
@@ -627,17 +637,12 @@ you should place your code here."
               (sql-highlight-postgres-keywords)))
 
   ;; R
+  (add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
   (setq-default ess-indent-offset 4)
   (setq-default ess-eval-visibly nil)
-  ;; Disable replacing '_' with ' -> '; have to set our
-  ;; own variable and check it to avoid toggling unnecessarily
-  (setq-default ess-underscore-is-set nil)
   (add-hook 'ess-mode-hook
             (lambda ()
-              (jnance/setup-ess-mode)
-              (unless ess-underscore-is-set
-                (ess-toggle-underscore nil)
-                (setq-default ess-underscore-is-set t))))
+              (jnance/setup-ess-mode)))
 
   ;; Haskell
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
