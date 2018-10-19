@@ -626,15 +626,6 @@ you should place your code here."
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
 
-  (defun projectile-pyenv-mode-set ()
-    "Set pyenv version matching project name."
-    (let ((project (projectile-project-name)))
-      (if (member project (pyenv-mode-versions))
-          (pyenv-mode-set project)
-        (pyenv-mode-unset))))
-
-  (add-hook 'projectile-before-switch-project-hook 'projectile-pyenv-mode-set)
-
   ;; SQL
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
   (add-hook 'sql-mode
