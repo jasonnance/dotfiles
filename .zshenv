@@ -12,4 +12,4 @@ export PATH="$PATH:$HOME/direnv"
 export PATH="$PATH:/usr/local/go/bin"
 
 # yarn
-export PATH="$PATH:/$HOME/.yarn/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
