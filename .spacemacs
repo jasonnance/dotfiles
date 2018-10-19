@@ -100,7 +100,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js)
+   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js exec-path-from-shell)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -346,6 +346,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
                   (awk-mode . "awk")
                   (c-mode . "bsd")
                   (c++-mode . "bsd")))
+
+  (let ((shell "/usr/local/bin/zsh"))
+    (setq-default
+     shell-default-term-shell shell
+     shell-file-name shell
+     multi-term-program shell))
   )
 
 (defun jnance/setup-rtags ()
@@ -556,6 +562,8 @@ you should place your code here."
   (setq-default tab-always-indent t
                 tab-width 4
                 evil-shift-width 4)
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
 
   ;; General flycheck
   (setq-default flycheck-disabled-checkers
@@ -566,11 +574,6 @@ you should place your code here."
   (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;; Shell
-  (let ((shell "/bin/bash"))
-    (setq-default
-     shell-default-term-shell shell
-     shell-file-name shell
-     multi-term-program shell))
   (add-to-list 'auto-mode-alist '("\\.zshrc_secret\\'" . sh-mode))
   (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
   (add-to-list 'auto-mode-alist '("\\.out\\'" . auto-revert-mode))
