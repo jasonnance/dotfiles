@@ -570,6 +570,7 @@ you should place your code here."
   (with-eval-after-load 'flycheck
     (setq-default flycheck-disabled-checkers
                   (append '(elixir-dogma) flycheck-disabled-checkers))
+    (setq-default flycheck-flake8rc "~/.config/flake8")
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'python-flake8 'anaconda-mode)
     (flycheck-add-mode 'python-pylint 'anaconda-mode))
