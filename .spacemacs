@@ -566,8 +566,12 @@ you should place your code here."
     (exec-path-from-shell-initialize))
 
   ;; General flycheck
-  (setq-default flycheck-disabled-checkers
-                (append '(elixir-dogma) flycheck-disabled-checkers))
+  (with-eval-after-load 'flycheck
+    (setq-default flycheck-disabled-checkers
+                  (append '(elixir-dogma) flycheck-disabled-checkers))
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'python-flake8 'anaconda-mode)
+    (flycheck-add-mode 'python-pylint 'anaconda-mode))
 
   ;; Markdown/text
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
@@ -594,7 +598,6 @@ you should place your code here."
             (lambda (hash) (set-web-mode-paddings)))
   ;; Vue
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
@@ -620,9 +623,6 @@ you should place your code here."
   (pyenv-mode)
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'python-flake8 'anaconda-mode)
-    (flycheck-add-mode 'python-pylint 'anaconda-mode))
 
   (defun projectile-pyenv-mode-set ()
     "Set pyenv version matching project name."
