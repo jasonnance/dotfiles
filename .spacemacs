@@ -102,7 +102,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js)
+   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js exec-path-from-shell)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -348,6 +348,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
                   (awk-mode . "awk")
                   (c-mode . "bsd")
                   (c++-mode . "bsd")))
+
+  (let ((shell "/usr/local/bin/zsh"))
+    (setq-default
+     shell-default-term-shell shell
+     shell-file-name shell
+     multi-term-program shell))
   )
 
 (defun jnance/setup-rtags ()
@@ -558,21 +564,24 @@ you should place your code here."
   (setq-default tab-always-indent t
                 tab-width 4
                 evil-shift-width 4)
+  (when (memq window-system '(mac ns x))
+    (setq exec-path-from-shell-arguments '("-l"))
+    (exec-path-from-shell-initialize))
 
   ;; General flycheck
-  (setq-default flycheck-disabled-checkers
-                (append '(elixir-dogma) flycheck-disabled-checkers))
+  (with-eval-after-load 'flycheck
+    (setq-default flycheck-disabled-checkers
+                  (append '(elixir-dogma) flycheck-disabled-checkers))
+    (setq-default flycheck-flake8rc "~/.config/flake8")
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'python-flake8 'anaconda-mode)
+    (flycheck-add-mode 'python-pylint 'anaconda-mode))
 
   ;; Markdown/text
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
   (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;; Shell
-  (let ((shell "/bin/bash"))
-    (setq-default
-     shell-default-term-shell shell
-     shell-file-name shell
-     multi-term-program shell))
   (add-to-list 'auto-mode-alist '("\\.zshrc_secret\\'" . sh-mode))
   (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
   (add-to-list 'auto-mode-alist '("\\.out\\'" . auto-revert-mode))
@@ -593,7 +602,6 @@ you should place your code here."
             (lambda (hash) (set-web-mode-paddings)))
   ;; Vue
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
@@ -619,9 +627,6 @@ you should place your code here."
   (pyenv-mode)
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'python-flake8 'anaconda-mode)
-    (flycheck-add-mode 'python-pylint 'anaconda-mode))
 
   (defun projectile-pyenv-mode-set ()
     "Set pyenv version matching project name."
