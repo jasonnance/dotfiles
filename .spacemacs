@@ -102,7 +102,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig pyenv-mode direnv prettier-js exec-path-from-shell)
+   dotspacemacs-additional-packages '(rtags helm-rtags flycheck-rtags company-rtags editorconfig direnv prettier-js exec-path-from-shell)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -624,7 +624,6 @@ you should place your code here."
    )
 
   ;; Python
-  (pyenv-mode)
   (add-hook 'anaconda-mode 'run-python)
   (setq python-shell-completion-native-enable nil)
 
