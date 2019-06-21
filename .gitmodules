@@ -61,3 +61,6 @@
 [submodule "direnv"]
 	path = direnv
 	url = https://github.com/direnv/direnv
+[submodule "zsh_themes/powerlevel10k"]
+	path = zsh_themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git

@@ -65,7 +65,8 @@ values."
      react
      osx
      (python :variables
-             python-test-runner 'pytest)
+             python-test-runner 'pytest
+             python-auto-set-local-pyenv-version 'on-visit)
      ipython-notebook
      docker
      ansible
@@ -83,13 +84,13 @@ values."
      cscope
      semantic
      (go :variables
+         go-format-before-save t
          go-use-gocheck-for-testing t
          gofmt-command "goimports"
          go-tab-width 8
-         go-use-gometalinter t
-         flycheck-gometalinter-vendor t
-         flycheck-gometalinter-deadline "10s"
-         flycheck-gometalinter-fast t
+         ;; This doesn't work well with Go 1.9
+         ;; go-use-golangci-lint t
+         godoc-at-point-function 'godoc-gogetdoc
          go-packages-function 'go-packages-go-list)
      elixir
      (elm :variables
@@ -600,6 +601,8 @@ you should place your code here."
   ;; editorconfig overrides these if we don't set them like this
   (add-hook 'editorconfig-custom-hooks
             (lambda (hash) (set-web-mode-paddings)))
+  ;; open js files in web-mode for uniformity
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
   ;; Vue
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
@@ -704,7 +707,7 @@ you should place your code here."
  '(js2-strict-missing-semi-warning nil)
  '(package-selected-packages
    (quote
-    (helm-rtags company-rtags flycheck-rtags rtags stickyfunc-enhance srefactor helm-cscope xcscope disaster company-c-headers cmake-mode clang-format direnv omnisharp csharp-mode insert-shebang hide-comnt powershell company-emacs-eclim eclim intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode helm-dash dash-at-point selectric-mode typit mmt pacmacs 2048-game ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (winum unfill sudoku shut-up helm-gtags go-guru go-eldoc ggtags fuzzy flycheck-gometalinter ghub let-alist request-deferred deferred company-go go-mode company-ansible edit-indirect ssass-mode vue-html-mode graphviz-dot-mode vimrc-mode dactyl-mode helm-rtags company-rtags flycheck-rtags rtags stickyfunc-enhance srefactor helm-cscope xcscope disaster company-c-headers cmake-mode clang-format direnv omnisharp csharp-mode insert-shebang hide-comnt powershell company-emacs-eclim eclim intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode helm-dash dash-at-point selectric-mode typit mmt pacmacs 2048-game ess-smart-equals ess-R-object-popup ess-R-data-view ctable ess julia-mode editorconfig csv-mode nginx-mode yaml-mode jinja2-mode ansible-doc ansible tide typescript-mode dockerfile-mode docker tablist docker-tramp reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-css-scss haml-mode fish-mode emmet-mode ein websocket cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-anaconda coffee-mode anaconda-mode pythonic xterm-color smeargle shell-pop orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(safe-local-variable-values
    (quote
     ((flycheck-disabled-checkers
