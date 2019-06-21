@@ -64,3 +64,6 @@
 [submodule "zsh_themes/powerlevel10k"]
 	path = zsh_themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh_plugins/zsh-nvm"]
+	path = zsh_plugins/zsh-nvm
+	url = https://github.com/lukechilds/zsh-nvm
