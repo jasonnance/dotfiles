@@ -66,8 +66,15 @@ values."
      react
      osx
      (python :variables
+             python-backend 'lsp
+             python-lsp-server 'mspyls
              python-test-runner 'pytest
+             python-formatter 'black
+             python-format-on-save t
+             python-sort-imports-on-save t
              python-auto-set-local-pyenv-version 'on-visit)
+     lsp
+     dap
      ipython-notebook
      docker
      ansible
@@ -83,7 +90,6 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      cscope
-     semantic
      (go :variables
          go-format-before-save t
          go-use-gocheck-for-testing t
