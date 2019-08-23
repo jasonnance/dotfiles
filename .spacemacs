@@ -58,7 +58,8 @@ values."
      syntax-checking
      version-control
      (javascript :variables
-                 node-modules-add-path t)
+                 node-modules-add-path t
+                 javascript-fmt-tool 'prettier)
      html
      shell-scripts
      sql
