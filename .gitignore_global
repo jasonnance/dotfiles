@@ -10,6 +10,9 @@
 .nvmrc
 cscope.files
 cscope.out
+node_modules/
+.mypy_cache/
+__pycache__/
 
 # Microsoft Office
 *.tmp
