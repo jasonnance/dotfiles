@@ -70,8 +70,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"
-export VISUAL="emacsclient -c -a emacs"
+export EDITOR="vim"
+export VISUAL="gvim"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
