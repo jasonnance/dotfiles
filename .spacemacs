@@ -360,7 +360,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
                   (c-mode . "bsd")
                   (c++-mode . "bsd")))
 
-  (let ((shell "/usr/local/bin/zsh"))
+  (let ((shell "zsh"))
     (setq-default
      shell-default-term-shell shell
      shell-file-name shell
