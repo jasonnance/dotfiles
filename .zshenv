@@ -1,5 +1,5 @@
 # general
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$HOME/.local/bin:$PATH"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -11,6 +11,9 @@ export PATH="$PATH:$HOME/direnv"
 
 # go
 export PATH="$PATH:/usr/local/go/bin"
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # yarn
 export PATH="$PATH:$HOME/.yarn/bin"
