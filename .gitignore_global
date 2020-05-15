@@ -1,3 +1,6 @@
+# Conventional directory for scratch files on projects
+scratch/
+
 *.swp
 *.swo
 .DS_Store*
