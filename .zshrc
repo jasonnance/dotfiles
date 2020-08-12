@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export TERM="xterm-256color"
 
 # If you come from bash you might have to change your $PATH.
@@ -54,7 +61,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE: zsh-syntax-highlighting MUST be the last plugin sourced to work properly
-export NVM_LAZY_LOAD=true
 export NVM_AUTO_USE=true
 export NVM_DIR=~/.nvm
 plugins=(git zsh-nvm emacs zsh-autosuggestions zsh-syntax-highlighting)
@@ -71,7 +77,7 @@ source $ZSH/oh-my-zsh.sh
 # Preferred editor for local and remote sessions
 export ALTERNATE_EDITOR=""
 export EDITOR="vim"
-export VISUAL="gvim"
+export VISUAL="vim"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -122,3 +128,6 @@ function export_conda_env() {
     # Export a conda environment without the useless prefix line.
     conda env export -n $(pyenv version-name) | grep -v '^prefix: ' > environment.yml
 }
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

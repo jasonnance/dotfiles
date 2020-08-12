@@ -70,7 +70,7 @@ submodule_symlink $(get_abs_filename "./direnv") "$HOME"
 command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
 
 # Setup dotfiles
-for dotfile in .gitignore_global .spacemacs \
+for dotfile in .gitignore_global .spacemacs .p10k.zsh \
                                  .pylintrc .ipyrc .zshrc \
                                  .zshenv flake8; do
     install_dir="$HOME"
