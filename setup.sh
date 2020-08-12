@@ -42,11 +42,7 @@ function install_dotfile() {
     if [[ ! -e "$install_dir/$dotfile" ]]; then
         ln -s $(get_abs_filename "$dotfile") "$install_dir/$dotfile"
 
-        if [[ "$dotfile" = ".vim" ]]; then
-            pushd "$dotfile"
-            git submodule update --init --recursive
-            popd
-        elif [[ "$dotfile" = ".gitignore_global" ]]; then
+        if [[ "$dotfile" = ".gitignore_global" ]]; then
             git config --global core.excludesfile ~/.gitignore_global
         fi
     fi
@@ -74,8 +70,8 @@ submodule_symlink $(get_abs_filename "./direnv") "$HOME"
 command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
 
 # Setup dotfiles
-for dotfile in .gitignore_global .gvimrc .vimrc .spacemacs \
-                                 .vim .pylintrc .ipyrc .zshrc \
+for dotfile in .gitignore_global .spacemacs \
+                                 .pylintrc .ipyrc .zshrc \
                                  .zshenv flake8; do
     install_dir="$HOME"
 
