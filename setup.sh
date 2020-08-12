@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assumes emacs/spacemacs, vim, go, and zsh are already installed.
+# Assumes emacs/spacemacs, make, go, and zsh are already installed.
 
 set -e
 
