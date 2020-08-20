@@ -574,7 +574,10 @@ you should place your code here."
   (remove-hook 'prog-mode-hook #'smartparens-mode)
   (setq-default tab-always-indent t
                 tab-width 4
-                evil-shift-width 4)
+                evil-shift-width 4
+                ;; Ensure jumps land with the cursor in the middle of the screen
+                ;; for readability
+                scroll-preserve-screen-position t)
   (when (memq window-system '(mac ns x))
     (setq exec-path-from-shell-arguments '("-l"))
     (exec-path-from-shell-initialize))
@@ -702,7 +705,11 @@ you should place your code here."
   (remove-hook 'yaml-mode-hook 'company-mode)
   (add-hook 'company-mode-hook
             (lambda ()
-              (delete 'company-dabbrev company-backends))))
+              (delete 'company-dabbrev company-backends)))
+  ;; LSP
+  ; Prevent annoying formatting when typing semicolons in strings/comments in Python
+  (setq lsp-enable-on-type-formatting nil))
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
