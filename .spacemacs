@@ -598,6 +598,8 @@ you should place your code here."
   ;; Markdown/text
   (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
   (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+  ;; Smartparens behavior with HTML tags in Markdown mode is really annoying
+  (remove-hook 'markdown-mode-hook #'smartparens-mode)
 
   ;; Shell
   (add-to-list 'auto-mode-alist '("\\.zshrc_secret\\'" . sh-mode))
