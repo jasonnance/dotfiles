@@ -93,14 +93,15 @@ values."
             c-c++-enable-clang-support t)
      cscope
      (go :variables
-         go-format-before-save t
-         go-use-gocheck-for-testing t
-         gofmt-command "goimports"
-         go-tab-width 8
-         ;; This doesn't work well with Go 1.9
-         ;; go-use-golangci-lint t
+         go-backend 'lsp
          godoc-at-point-function 'godoc-gogetdoc
-         go-packages-function 'go-packages-go-list)
+         go-format-before-save t
+         gofmt-command "goimports"
+         go-use-golangci-lint t
+         go-tab-width 8
+         ;; go-use-gocheck-for-testing t
+         ;; go-packages-function 'go-packages-go-list
+         )
      elixir
      (elm :variables
           elm-sort-imports-on-save t
