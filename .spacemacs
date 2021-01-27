@@ -67,13 +67,15 @@ values."
      osx
      (python :variables
              python-backend 'lsp
-             python-lsp-server 'mspyls
+             python-lsp-server 'pyright
              python-test-runner 'pytest
              python-formatter 'black
              python-format-on-save t
              python-sort-imports-on-save t
-             python-auto-set-local-pyenv-version 'on-visit)
-     lsp
+             python-auto-set-local-pyenv-version 'on-project-switch)
+     (lsp :variables
+          lsp-ui-sideline-enable nil
+          lsp-ui-doc-enable nil)
      dap
      ipython-notebook
      docker
