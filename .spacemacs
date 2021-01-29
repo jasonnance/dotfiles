@@ -40,11 +40,6 @@ values."
      nginx
      typescript
      java
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t)
@@ -83,6 +78,8 @@ values."
      nginx
      games
      dash
+     (yaml :variables
+           yaml-enable-lsp t)
      (haskell :variables
               haskell-process-type 'stack-ghci
               haskell-process-path-ghci "stack"
