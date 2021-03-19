@@ -16,6 +16,7 @@ cscope.out
 node_modules/
 .mypy_cache/
 __pycache__/
+.vscode/
 
 # Microsoft Office
 *.tmp
