@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assumes emacs/spacemacs, make, go, and zsh are already installed.
+# Assumes emacs/spacemacs, make, unzip, curl, and zsh are already installed.
 
 set -e
 
@@ -66,8 +66,9 @@ fi
 submodule_symlink $(get_abs_filename "./pyenv-virtualenv") "$(pyenv root)/plugins/"
 
 # And direnv (requires Go)
-submodule_symlink $(get_abs_filename "./direnv") "$HOME"
-command -v direnv >/dev/null 2>&1 || (cd direnv && make direnv && cd ..)
+if ! command -v direnv; then
+	sudo sh -c 'export PATH="/usr/local/bin:$PATH" && curl -sfL https://direnv.net/install.sh | bash'
+fi
 
 # Setup dotfiles
 for dotfile in .gitignore_global .spacemacs .p10k.zsh \
