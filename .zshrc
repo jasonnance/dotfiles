@@ -110,13 +110,13 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # zsh auto-suggest colors that stand out in the Solarized color scheme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=242
 
-# direnv
-eval "$(direnv hook zsh)"
-
 # source secret config untracked by source control, if it's there
 if [[ -f "$HOME/.zshrc_secret" ]]; then
     source "$HOME/.zshrc_secret"
 fi
+
+# direnv
+eval "$(direnv hook zsh)"
 
 function generate_compile_commands() {
     make clean
