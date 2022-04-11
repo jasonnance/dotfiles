@@ -1,6 +1,6 @@
 [submodule "zsh_plugins/zsh-autosuggestions"]
 	path = zsh_plugins/zsh-autosuggestions
-	url = git://github.com/zsh-users/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "zsh_themes/powerlevel9k"]
 	path = zsh_themes/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
