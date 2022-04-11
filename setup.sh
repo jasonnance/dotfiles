@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assumes emacs/spacemacs, make, unzip, curl, and zsh are already installed.
+# Assumes emacs/spacemacs, make, unzip, wget, curl, and zsh are already installed.
 
 set -e
 
