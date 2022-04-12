@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+DISABLE_MAGIC_FUNCTIONS="true"
+
 export TERM="xterm-256color"
 
 # If you come from bash you might have to change your $PATH.
@@ -106,6 +108,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
 # pyenv config
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv init -)"
 
 # zsh auto-suggest colors that stand out in the Solarized color scheme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=242
