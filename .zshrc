@@ -65,7 +65,10 @@ HIST_STAMPS="yyyy-mm-dd"
 # NOTE: zsh-syntax-highlighting MUST be the last plugin sourced to work properly
 export NVM_AUTO_USE=true
 export NVM_DIR=~/.nvm
-plugins=(git zsh-nvm emacs zsh-autosuggestions zsh-syntax-highlighting)
+# TODO zsh-nvm is causing massive slowdown and apparently can't use config to fix it
+# https://github.com/lukechilds/zsh-nvm/issues/86
+# put back?
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,7 +111,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
 # pyenv config
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-eval "$(pyenv init -)"
+eval "$(pyenv init --path --no-rehash)"
 
 # zsh auto-suggest colors that stand out in the Solarized color scheme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=242
