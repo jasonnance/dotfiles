@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/direnv"
 
 # go
 export PATH="$PATH:/usr/local/go/bin"
+export GOPATH="$HOME/golang"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 # rust
