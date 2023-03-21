@@ -20,6 +20,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
 
 # yarn
 export PATH="$PATH:$HOME/.yarn/bin"
